@@ -18,6 +18,7 @@ const nextConfig = {
       'oaidalleapiprodscus.blob.core.windows.net',
       'bucketnextpage.s3.ap-northeast-2.amazonaws.com',
     ],
+    loader: 'default',
 
     // remotePatterns: [
     //   {

@@ -12,7 +12,7 @@ const CarouselContainer: React.FC = () => {
   const carouselRef = useRef<HTMLDivElement>(null)
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
   const cellCount: number = 7
-  const [images, setImages] = useState<string[]>([]) // 이미지 URL을 저장할 상태
+  const [images, setImages] = useState<Image[]>([])// 이미지 URL을 저장할 상태
   const [content, setContent] = useState<string>('')
   const [userNickname, setUserNickname] = useState<string>('')
 

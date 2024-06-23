@@ -4,7 +4,6 @@ import axios from 'axios'
 import { motion } from 'framer-motion'
 import Background from '@/app/_components/Background'
 import Navbar from '@/app/_components/Navbar'
-import ScenarioSlide from './_component/ScenarioSlide'
 import CarouselContainer from './_component/3dCarousel'
 
 const Chapter = () => {

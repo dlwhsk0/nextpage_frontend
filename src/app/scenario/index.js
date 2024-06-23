@@ -1,9 +1,9 @@
-const { createBrowserRouter } = require('react-router-dom')
+// const { createBrowserRouter } = require('react-router-dom')
 
-const router = createBrowserRouter([
-  {
-    children: [
-      { path: '/scanrio/[rootId]/:rootId', element: <ScenarioRootId /> },
-    ],
-  },
-])
+// const router = createBrowserRouter([
+//   {
+//     children: [
+//       { path: '/scanrio/[rootId]/:rootId', element: <ScenarioRootId /> },
+//     ],
+//   },
+// ])

@@ -7,43 +7,39 @@ import Background from '../_components/Background'
 import { useEffect, useState } from 'react'
 
 const Scenario = () => {
-  //   const user = useRecoilValue(userState);
-  //   const { rootId } = useParams() as { rootId: string }
-  //   const story_id = parseInt(rootId, 10)s
-  // const { rootId } = useParams() // rootId만 사용
-  // const { rootId } = useParams<{ rootId: string }>()
-  // console.log(rootId)
-  //   const navigate = useNavigate() // 뒤로 가기
-
-  // const location = useLocation()
-  const searchParams = new URLSearchParams(location.search)
-  const rootId = searchParams.get('rootId')
-
-  // const [isStoryModalOpen, setIsStoryModalOpen] = useState(false)
-  // const [isCreateModalOpen, setIsCreateModalOpen] = useState(false) // 모달 관리
-
   const [scenario, setScenario] = useState([]) // d3 시나리오
-  const [clickStoryId, setClickStoryId] = useState<{
-    rootId: number | null
-    page: number
-  }>({
-    rootId: typeof rootId === 'string' ? parseInt(rootId) : rootId,
-    page: 0,
-  }) //클릭한 시나리오 조회
+  const [rootId, setRootId] = useState<number | null>(null)
+  // const [clickStoryId, setClickStoryId] = useState<{
+  //   rootId: number | null
+  //   page: number
+  // }>({
+  //   rootId: typeof rootId === 'string' ? parseInt(rootId) : rootId,
+  //   page: 0,
+  // }) //클릭한 시나리오 조회
+
+  // const searchParams = new URLSearchParams(location.search)
+  // const rootId = searchParams.get('rootId')
+
+  useEffect(() => {
+    // 클라이언트 사이드에서만 실행되도록 확인
+    if (typeof window !== 'undefined') {
+      const searchParams = new URLSearchParams(window.location.search)
+      const id = searchParams.get('rootId')
+      setRootId(id ? parseInt(id, 10) : null)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (rootId !== null) {
+      scenarioAPI(rootId)
+    }
+  }, [rootId])
 
   const handleClickBack = () => {
-    // 메인 페이지로 가기
-    // navigate('/main')
-    // window.location.href = '/main'
     window.history.back()
   }
 
-  const scenarioAPI = async () => {
-    //이 코드가 useEffect 내부에 있어야 렌더링 시 바로 트리 그래프 출력됨
-    const searchParams = new URLSearchParams(location.search)
-    const rootId = searchParams.get('rootId')
-    console.log('rootId: ', rootId)
-    if (!rootId) return
+  const scenarioAPI = async (rootId: number) => {
     try {
       const response = await fetch(`/api/v2/stories/${rootId}`)
       if (response.ok) {
@@ -60,11 +56,11 @@ const Scenario = () => {
     }
   }
 
-  useEffect(() => {
-    // rootId가 존재할 때만 API 호출
-    scenarioAPI()
-    // }, [rootId, isCreateModalOpen])
-  }, [rootId])
+  // useEffect(() => {
+  //   // rootId가 존재할 때만 API 호출
+  //   scenarioAPI()
+  //   // }, [rootId, isCreateModalOpen])
+  // }, [rootId])
 
   return (
     <div className="overflow-hidden">
